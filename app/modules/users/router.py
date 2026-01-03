@@ -1,14 +1,20 @@
 from fastapi import APIRouter, Depends
-
-from .service import UserService, get_user_service
+from app.core.database import get_session
 from app.modules.users.schemas import UserSchema
+from .service import UserService, get_user_service
 
 router = APIRouter(
     prefix="/users",
-    tags=["Users"]
+    tags=["Users"],
+    dependencies=[Depends(get_session)],
 )
 
 
-@router.get("/", response_model=list[UserSchema])
+@router.get("/")
 def list_users(service: UserService = Depends(get_user_service)):
     return service.list_users()
+
+
+@router.get("/{user_id}", response_model=UserSchema)
+def get_user(user_id: int, service: UserService = Depends(get_user_service)):
+    return service.get_user(user_id)
