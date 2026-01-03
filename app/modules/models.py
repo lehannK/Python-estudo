@@ -10,6 +10,11 @@ class UserRole(str, Enum):
     finance = "finance"
 
 
+class UserStatus(str, Enum):
+    active = "active"
+    inactive = "inactive"
+
+
 class User(SQLModel, table=True):
     __tablename__ = "users"
 
@@ -27,6 +32,6 @@ class User(SQLModel, table=True):
     phone_number: str | None = Field(default=None, max_length=15, unique=True)
 
     # Status e timestamps
-    status: str = Field(default="active")
+    status: UserStatus = Field(default=UserStatus.active)
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
