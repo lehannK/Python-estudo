@@ -32,7 +32,13 @@ class Users(SQLModel, table=True):
     role: str = Field(
         sa_column=Column(
             "role",
-            Enum("admin", "employee", "supervisor", "finance", name="user_role"),
+            Enum(
+                "admin",
+                "employee",
+                "supervisor",
+                "finance",
+                name="user_role",
+            ),
             nullable=False,
         )
     )
