@@ -8,11 +8,6 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=list[UserSchema])
 def list_users(service: UserService = Depends(get_user_service)):
     return service.list_users()
-
-
-@router.get("/{user_id}", response_model=UserSchema)
-def get_user(user_id: int, service: UserService = Depends(get_user_service)):
-    return service.get_user(user_id)

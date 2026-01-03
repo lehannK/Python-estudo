@@ -1,12 +1,21 @@
-from typing import Optional
+from datetime import datetime
+from typing import Literal, Optional
 from pydantic import BaseModel
+from app.modules.models import UserRole
 
 
 class UserSchema(BaseModel):
     id: int
-    name: str
+    public_id: str
+    first_name: str
     last_name: str
-    birth_date: Optional[int] = None
+    email: str
+    role: UserRole
+    cpf: Optional[str] = None
+    phone_number: Optional[str] = None
+    status: Literal["active", "inactive"]
+    created_at: datetime
+    updated_at: datetime
 
 
 class CreateUserSchema(BaseModel):
